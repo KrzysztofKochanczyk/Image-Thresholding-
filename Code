@@ -1,0 +1,53 @@
+import numpy as np
+from matplotlib import pyplot as plt
+
+im = plt.imread('file:///C:/Users/User/Desktop/sunset.png')
+
+s=im.shape
+
+grey = np.zeros((s[0],s[1]));
+
+s0=np.copy(grey)
+s1=np.copy(im)
+
+fig,ax = plt.subplots(2,2)
+
+
+def Average(pixel):
+    return ((pixel[0] + pixel[1] + pixel[2])/3)
+
+for r in range(len(im)): 
+ for c in range(len(im[r])): 
+        grey[r][c] = Average(im[r][c]); 
+
+
+thresh1 = 0.6
+thresh2 = 0.5
+thresh3 = 0.4
+s0=np.copy(grey)
+s1=np.copy(grey)
+s2=np.copy(grey)
+
+s0= np.where(s0<thresh1,0,1)
+s1= np.where(s1<thresh2,0,1)
+s2= np.where(s2<thresh3,0,1)
+
+ax[0,0].set_title('Grey Image')
+ax[1,0].set_title('Thresh = 0.5')
+ax[0,1].set_title('Thresh = 0.6')
+ax[1,1].set_title('Thresh = 0.4')
+
+ax[0,0].set_yticks([],[])
+ax[0,1].set_yticks([],[])
+ax[1,0].set_yticks([],[])
+ax[1,1].set_yticks([],[])
+ax[0,0].set_xticks([],[])
+ax[0,1].set_xticks([],[])
+ax[1,0].set_xticks([],[])
+ax[1,1].set_xticks([],[])
+
+
+ax[0,0].imshow(grey, cmap = plt.cm.Greys_r) 
+ax[0,1].imshow(s0, cmap = plt.cm.Greys_r) 
+ax[1,0].imshow(s1, cmap = plt.cm.Greys_r) 
+ax[1,1].imshow(s2, cmap = plt.cm.Greys_r) 
